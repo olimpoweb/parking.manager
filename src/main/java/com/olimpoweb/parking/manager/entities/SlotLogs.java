@@ -1,8 +1,7 @@
 package com.olimpoweb.parking.manager.entities;
 
 import java.util.Date;
-
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 
 import com.olimpoweb.parking.manager.entities.commons.BaseEntityAudit;
 import com.olimpoweb.parking.manager.models.enums.SlotLogEnum;
@@ -13,26 +12,18 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "park_logs")
-public class ParkLogs extends BaseEntityAudit {
+@Table(name = "slot_logs")
+public class SlotLogs extends BaseEntityAudit {
 
     @Column(nullable = false, length = 36)
-    private UUID parkId;
+    private UUID slotId;
 
     @NotNull
     @Column(length = 10)

@@ -71,4 +71,6 @@ public class User extends BaseEntityAudit implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    
 }

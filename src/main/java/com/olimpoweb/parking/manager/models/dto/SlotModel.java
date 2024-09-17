@@ -1,10 +1,8 @@
-package com.olimpoweb.parking.manager.models;
+package com.olimpoweb.parking.manager.models.dto;
 
-import java.util.Date;
 import java.util.UUID;
 
 import com.olimpoweb.parking.manager.models.commons.BaseModel;
-import com.olimpoweb.parking.manager.models.enums.SlotLogEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,14 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SlotLogsModel extends BaseModel {
+public class SlotModel extends BaseModel {
 
-    private UUID slotId;
+    private UUID parkId;
 
     private String licensePlate;
 
-    private SlotLogEnum slotLogType;
-
-    private Date logDate;
+    private String place;
 
 }

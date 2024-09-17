@@ -1,4 +1,4 @@
-package com.olimpoweb.parking.manager.models;
+package com.olimpoweb.parking.manager.models.dto;
 
 import com.olimpoweb.parking.manager.models.commons.BaseModel;
 

@@ -1,6 +1,8 @@
 package com.olimpoweb.parking.manager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,9 +16,11 @@ import com.olimpoweb.parking.manager.models.responses.JwtAuthResponse;
 import com.olimpoweb.parking.manager.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     @Autowired
@@ -28,11 +32,20 @@ public class AuthService {
     
     public JwtAuthResponse signup(SignUpRequest request) {
         var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
-                .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleEnum.USER).build();
-        userRepository.save(user);
+        try {
+            userRepository.save(user);          
+        } catch (DataIntegrityViolationException e) {
+            log.error(HttpStatus.FORBIDDEN + "User with this email already exist");
+            throw new DataIntegrityViolationException("User with this email already exist");
+        }
+
         var jwt = jwtService.generateToken(user);
-        return JwtAuthResponse.builder().token(jwt).build();
+        return JwtAuthResponse.builder()
+          .token(jwt)
+          .user(user).build();
     }
 
     public JwtAuthResponse signin(SignInRequest request) {

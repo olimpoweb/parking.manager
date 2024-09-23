@@ -5,6 +5,9 @@ token:
   signing:
     key: 413F4506597033733674455368566D226452948428472B4B62639792404D6351
 
+config:
+  slots: 5
+
 spring:
   application:
     name: parking.manager

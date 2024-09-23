@@ -1,7 +1,5 @@
 package com.olimpoweb.parking.manager.models.dto;
 
-import java.util.UUID;
-
 import com.olimpoweb.parking.manager.models.commons.BaseModel;
 
 import lombok.AllArgsConstructor;
@@ -15,10 +13,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class SlotModel extends BaseModel {
 
-    private UUID parkId;
-
     private String licensePlate;
-
-    private String place;
 
 }

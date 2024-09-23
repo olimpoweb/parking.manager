@@ -18,6 +18,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
+    /**
+     * Get user by email
+     * @return
+     */
     public UserDetailsService userDetailsService() {
         
         return new UserDetailsService() {
@@ -30,6 +34,10 @@ public class UserService {
         
     }
 
+    /**
+     * Get all users
+     * @return
+     */
     public List<User> allUsers() {
         List<User> users = new ArrayList<>();
 

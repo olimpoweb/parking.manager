@@ -11,5 +11,11 @@ import com.olimpoweb.parking.manager.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    /**
+     * Find user by email
+     * @param email
+     * @return
+     */
     Optional<User> findByEmail(String email);
+
 }

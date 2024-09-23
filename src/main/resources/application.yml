@@ -7,6 +7,8 @@ token:
 
 config:
   slots: 5
+  openapi:
+    dev-url: http://localhost:8443/api/v1/
 
 spring:
   application:

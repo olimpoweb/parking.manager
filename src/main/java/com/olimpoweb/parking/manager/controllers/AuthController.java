@@ -11,21 +11,24 @@ import com.olimpoweb.parking.manager.models.requests.SignUpRequest;
 import com.olimpoweb.parking.manager.models.responses.JwtAuthResponse;
 import com.olimpoweb.parking.manager.services.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@Tag(name = "Auth API")
 public class AuthController {
 
     private final AuthService authService;
+
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthResponse> signup(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authService.signup(request));
+    public ResponseEntity<JwtAuthResponse> signUp(@RequestBody SignUpRequest request) {
+        return ResponseEntity.ok(authService.signUp(request));
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<JwtAuthResponse> signin(@RequestBody SignInRequest request) {
-        return ResponseEntity.ok(authService.signin(request));
+    @PostMapping("/login")
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody SignInRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }

@@ -30,13 +30,18 @@ public class AuthService {
     private final JwtAuthService jwtService;
     private final AuthenticationManager authenticationManager;
     
-    public JwtAuthResponse signup(SignUpRequest request) {
+    /**
+     * Sign Up
+     * @param request
+     * @return
+     */
+    public JwtAuthResponse signUp(SignUpRequest request) {
         var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleEnum.USER).build();
         try {
-            userRepository.save(user);          
+            userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             log.error(HttpStatus.FORBIDDEN + "User with this email already exist");
             throw new DataIntegrityViolationException("User with this email already exist");
@@ -48,12 +53,20 @@ public class AuthService {
           .user(user).build();
     }
 
-    public JwtAuthResponse signin(SignInRequest request) {
+    /**
+     * Login User with email and password
+     * @param request
+     * @return
+     */
+    public JwtAuthResponse login(SignInRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
         var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email."));
+        
         var jwt = jwtService.generateToken(user);
-        return JwtAuthResponse.builder().token(jwt).build();
+        
+        return JwtAuthResponse.builder().token(jwt).user(user).build();
     }
 }

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.olimpoweb.parking.manager.entities.User;
 import com.olimpoweb.parking.manager.services.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RequestMapping("/api/v1/user")
 @RestController
+@Tag(name = "User API")
 public class UserController {
 
     @Autowired
